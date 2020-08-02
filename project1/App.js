@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, TouchableHighlightBase } from 'react-native';
 
 const WORK_DEFAULT_MINS = 10
 const WORK_DEFAULT_SECS = 0
@@ -8,11 +8,11 @@ const BREKA_DEFAULT_SECS = 0
 
 
 const Timer = props => (
-  <div>
-    <span>{props.time.minutes}</span>
-    <span> : </span>
-    <span>{props.time.seconds}</span>
-  </div>
+  <View>
+    <Text>{props.time.minutes}</Text>
+    <Text> : </Text>
+    <Text>{props.time.seconds}</Text>
+  </View>
 )
 
 export default class App extends React.Component {
@@ -23,12 +23,14 @@ export default class App extends React.Component {
       work_seconds: WORK_DEFAULT_SECS,
       break_minutes: BREAK_DEFAULT_SECS,
       break_seconds: BREKA_DEFAULT_SECS,
-      timer_state: "START" // start or stop
+      timer_state: "START" // work or break
     }
   }
   
   toggleTimer() {
-    this.timer_state = "STOP"
+    this.setState({
+      timer_state: "STOP"
+    })
   }
 
   restartTimer() {
@@ -38,22 +40,24 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>{this.state.timer_state} TIMER</Text>
-        <Button onPress={() => this.toggleTimer()} title={this.state.timer_state}></Button>
-        <Button onPress={() => this.restartTimer()} title="RESTART"></Button>
-        <View>
-           <Text>Work Time: </Text>
+        <Text style={styles.infoText}>{this.state.timer_state} TIMER</Text>
+        <View style={styles.inputFields}>
+          <Button onPress={() => this.toggleTimer()} title={this.state.timer_state}></Button>
+          <Button onPress={() => this.restartTimer()} title="RESTART"></Button>
+        </View>
+        <View style={styles.inputFields}>
+           <Text>Work Time -- </Text>
            <Text>Mins: </Text>
-           <TextInput id="work_mins"></TextInput>
+           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 10}}/>
            <Text>Secs: </Text>
-           <TextInput id="work_secs"></TextInput>
+           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 10}}/>
          </View>
-        <View>
-           <Text>Rest Time: </Text>
+        <View style={styles.inputFields}>
+           <Text>Rest Time -- </Text>
            <Text>Mins: </Text>
-           <TextInput id="rest_mins"></TextInput>
+           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 10}}/>
            <Text>Secs: </Text>
-           <TextInput id="rest_secs"></TextInput>
+           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 10}}/>
          </View>
       </View>
     );
@@ -67,4 +71,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  inputFields: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  infoText: {
+    fontSize: 48,
+  }
 });

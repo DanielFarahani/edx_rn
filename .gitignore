@@ -1,4 +1,4 @@
-project1/node_modules/**/*
-project1/.expo/*
+project1/node_modules
+project1/.expo
 project1/npm-debug.*
 project1/web-build
