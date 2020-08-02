@@ -9,9 +9,7 @@ const BREKA_DEFAULT_SECS = 0
 
 const Timer = props => (
   <View>
-    <Text>{props.time.minutes}</Text>
-    <Text> : </Text>
-    <Text>{props.time.seconds}</Text>
+    <Text style={styles.infoText}>00 : 00</Text>
   </View>
 )
 
@@ -23,9 +21,12 @@ export default class App extends React.Component {
       work_seconds: WORK_DEFAULT_SECS,
       break_minutes: BREAK_DEFAULT_SECS,
       break_seconds: BREKA_DEFAULT_SECS,
-      timer_state: "START" // work or break
+      timer_state: "START", // work or break
+      work_state: "WORK"
     }
   }
+  
+  // cout 
   
   toggleTimer() {
     this.setState({
@@ -40,24 +41,31 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.infoText}>{this.state.timer_state} TIMER</Text>
+        <Text style={styles.infoText}>{this.state.work_state} TIMER</Text>
+        
+        <Timer/>
+
         <View style={styles.inputFields}>
           <Button onPress={() => this.toggleTimer()} title={this.state.timer_state}></Button>
           <Button onPress={() => this.restartTimer()} title="RESTART"></Button>
         </View>
         <View style={styles.inputFields}>
-           <Text>Work Time -- </Text>
-           <Text>Mins: </Text>
-           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 10}}/>
-           <Text>Secs: </Text>
-           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 10}}/>
+           <Text>Work Times -- </Text>
+           <Text>Mins:</Text>
+           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
+            placeholder={this.state.work_minutes + ""}/>
+           <Text>  Secs:</Text>
+           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
+            placeholder={this.state.work_seconds + ""}/>
          </View>
         <View style={styles.inputFields}>
-           <Text>Rest Time -- </Text>
-           <Text>Mins: </Text>
-           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 10}}/>
-           <Text>Secs: </Text>
-           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 10}}/>
+           <Text>Rest Times -- </Text>
+           <Text>Mins:</Text>
+           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
+            placeholder={this.state.break_minutes+ ""}/>
+           <Text>  Secs:</Text>
+           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
+            placeholder={this.state.break_seconds + ""}/>
          </View>
       </View>
     );
