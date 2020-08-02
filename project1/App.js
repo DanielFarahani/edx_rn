@@ -1,17 +1,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableHighlightBase } from 'react-native';
+import Timer from './components/Timer'
 
 const WORK_DEFAULT_MINS = 10
 const WORK_DEFAULT_SECS = 0
 const BREAK_DEFAULT_SECS = 5
 const BREKA_DEFAULT_SECS = 0
-
-
-const Timer = props => (
-  <View>
-    <Text style={styles.infoText}>00 : 00</Text>
-  </View>
-)
 
 export default class App extends React.Component {
   constructor() {
@@ -26,7 +20,7 @@ export default class App extends React.Component {
     }
   }
   
-  // cout 
+  // 
   
   toggleTimer() {
     this.setState({
@@ -35,7 +29,7 @@ export default class App extends React.Component {
   }
 
   restartTimer() {
-    console.log("test")
+
   }
 
   render() {
@@ -43,7 +37,7 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Text style={styles.infoText}>{this.state.work_state} TIMER</Text>
         
-        <Timer/>
+        <Timer time={this.state.work_minutes}/>
 
         <View style={styles.inputFields}>
           <Button onPress={() => this.toggleTimer()} title={this.state.timer_state}></Button>
@@ -62,7 +56,7 @@ export default class App extends React.Component {
            <Text>Rest Times -- </Text>
            <Text>Mins:</Text>
            <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
-            placeholder={this.state.break_minutes+ ""}/>
+            placeholder={this.state.break_minutes + ""}/>
            <Text>  Secs:</Text>
            <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
             placeholder={this.state.break_seconds + ""}/>
