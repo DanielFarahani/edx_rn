@@ -1,80 +1,71 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, TouchableHighlightBase } from 'react-native';
 import Timer from './components/Timer'
+import { preventAutoHide } from 'expo/build/launch/SplashScreen';
 
-const WORK_DEFAULT_MINS = 10
-const WORK_DEFAULT_SECS = 0
-const BREAK_DEFAULT_SECS = 5
-const BREKA_DEFAULT_SECS = 0
+const DEFAULT_WORK_MINS = 25;
+const DEFAULT_REST_MINS = 5;
 
+// ===== helper =====
+
+
+
+// ===== main ======
 export default class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      work_minutes: WORK_DEFAULT_MINS,
-      work_seconds: WORK_DEFAULT_SECS,
-      break_minutes: BREAK_DEFAULT_SECS,
-      break_seconds: BREKA_DEFAULT_SECS,
-      timer_state: "START", // work or break
-      work_state: true,
-      title: "WORK"
+      work_seconds: DEFAULT_REST_MINS * 60,
+      rest_seconds: DEFAULT_REST_MINS * 60,
+      clock_state: "work",
+      active_state: true,
     }
   }
   
-  // reduce seconds
-  // reduce mintues when seconds reach end
-  // TODO Swap title between work and break
-  // TODO swap titles
-  // TODO swap start stop button title - start begins countdown, stop ends it
-  // record the times from input
-  
-  toggleTimer() {
-    if (work_state) {this.state.title =  "WORK"} else {this.state.title = "BREAK"}
-  }
 
-  restartTimer() {
+  // title that changes (clock state)
+  // time that decreases (clock state)
+  // button to stop and start with name change (active state)
+  // Reset button (independent, but needs something extra)
+  // input mins and seconds for work (independent)
+  // input mins and second for break (independent)
 
-  }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.infoText}>{this.state.title} TIMER</Text>
         
-
         {this.state.work_state && <Timer time={this.state}/>}
 
         <View style={styles.inputFields}>
-          <Button onPress={() => this.toggleTimer()} title={this.state.timer_state}></Button>
+          <Button onPress={() => (this.state.active_state) ? title="pause" : title="start"}></Button>
           <Button onPress={() => this.restartTimer()} title="RESTART"></Button>
         </View>
 
         <View style={styles.inputFields}>
-           <Text>Work Times -- </Text>
-           <Text>Mins:</Text>
+           <Text>Work Times: </Text>
            <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
             placeholder={this.state.work_minutes + ""}
-            onChange={() => {this.setState(work_minutes)}}
+            onChange={() => {this.setState(work_seconds)}}
             />
-           <Text>  Secs:</Text>
+           {/* <Text>  Secs:</Text>
            <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
             placeholder={this.state.work_seconds + ""}
             onChange={() => {this.setState(work_seconds)}}
-            />
+            /> */}
         </View>
 
         <View style={styles.inputFields}>
-           <Text>Rest Times -- </Text>
-           <Text>Mins:</Text>
+           <Text>Rest Times: </Text>
            <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
             placeholder={this.state.break_minutes + ""}
             onChange={() => {this.setState(break_minutes)}}
             />
-           <Text>  Secs:</Text>
+           {/* <Text>  Secs:</Text>
            <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
             placeholder={this.state.break_seconds + ""}
             onChange={() => {this.setState(break_seconds)}}
-            />
+            /> */}
         </View>
 
       </View>
