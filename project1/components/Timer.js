@@ -13,7 +13,7 @@ const Counter = props => {
 }
 
 const Title = props => {
-    return <Text style={styles.infoText}>{props.mode} TIME</Text>
+    return <Text style={styles.infoText}>{props.mode.toUpperCase()} TIME</Text>
 }
 
 export default class Timer extends React.Component {
@@ -51,7 +51,7 @@ export default class Timer extends React.Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval)
+        clearInterval(this.timer)
     }
 
     render() {
@@ -69,5 +69,6 @@ export default class Timer extends React.Component {
 const styles = StyleSheet.create({
     infoText: {
         fontSize: 48,
+        alignSelf: 'center',
     }
 })
