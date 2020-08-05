@@ -3,11 +3,10 @@ import { StyleSheet, Text, View, Button, TextInput, TouchableHighlightBase } fro
 import Timer from './components/Timer'
 import { preventAutoHide } from 'expo/build/launch/SplashScreen';
 
-const DEFAULT_WORK_MINS = 25;
+const DEFAULT_WORK_MINS = 1;
 const DEFAULT_REST_MINS = 5;
 
 // ===== helper =====
-
 
 
 // ===== main ======
@@ -15,7 +14,7 @@ export default class App extends React.Component {
   constructor() {
     super()
     this.state = {
-      work_seconds: DEFAULT_REST_MINS * 60,
+      work_seconds: DEFAULT_WORK_MINS * 60,
       rest_seconds: DEFAULT_REST_MINS * 60,
       clock_state: "work",
       active_state: true,
@@ -30,42 +29,35 @@ export default class App extends React.Component {
   // input mins and seconds for work (independent)
   // input mins and second for break (independent)
 
+  restartTimer() {
+
+  }
 
   render() {
     return (
       <View style={styles.container}>
         
-        {this.state.work_state && <Timer time={this.state}/>}
+        <Timer work={this.state.work_seconds} rest={this.state.rest_seconds}/>
 
         <View style={styles.inputFields}>
-          <Button onPress={() => (this.state.active_state) ? title="pause" : title="start"}></Button>
+          <Button title={(this.state.active_state) ? "PAUSE" : "WORK"}></Button>
           <Button onPress={() => this.restartTimer()} title="RESTART"></Button>
         </View>
 
         <View style={styles.inputFields}>
-           <Text>Work Times: </Text>
+           <Text>Work minutes: </Text>
            <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
-            placeholder={this.state.work_minutes + ""}
-            onChange={() => {this.setState(work_seconds)}}
+            placeholder={this.state.work_seconds/60 + ""}
+            onChangeText={(value) => {this.setState({work_seconds: value})}}
             />
-           {/* <Text>  Secs:</Text>
-           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
-            placeholder={this.state.work_seconds + ""}
-            onChange={() => {this.setState(work_seconds)}}
-            /> */}
         </View>
 
         <View style={styles.inputFields}>
-           <Text>Rest Times: </Text>
+           <Text>Rest minutes: </Text>
            <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
-            placeholder={this.state.break_minutes + ""}
-            onChange={() => {this.setState(break_minutes)}}
+            placeholder={this.state.rest_seconds/60 + ""}
+            onChangeText={(value) => {this.setState({break_minutes: value})}}
             />
-           {/* <Text>  Secs:</Text>
-           <TextInput style={{ height: 40, width: 50, borderWidth: 1, margin: 5}}
-            placeholder={this.state.break_seconds + ""}
-            onChange={() => {this.setState(break_seconds)}}
-            /> */}
         </View>
 
       </View>
