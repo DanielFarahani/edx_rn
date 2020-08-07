@@ -3,3 +3,5 @@ project1/.expo
 project1/npm-debug.*
 project1/web-build
 .DS_Store
+zPomodoro-timer/
+*/node_modules/
