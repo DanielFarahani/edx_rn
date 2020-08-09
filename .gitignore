@@ -5,3 +5,4 @@ project1/web-build
 .DS_Store
 zPomodoro-timer/
 */node_modules/
+*/.expo/
